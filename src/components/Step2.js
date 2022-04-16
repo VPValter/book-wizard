@@ -34,6 +34,13 @@ const Step2 = ({ genres }) => {
               {item.name}
             </span>
           ))}
+        <span
+          id='addNew'
+          className={step2Selection === 'addNew' ? 'btn selected' : 'btn'}
+          onClick={() => selectStep2({ id: 'addNew' })}
+        >
+          Add new
+        </span>
       </div>
 
       <div className='flex-row'>
@@ -41,7 +48,11 @@ const Step2 = ({ genres }) => {
           Prev
         </Link>
         <Link
-          to={`/step3/${params.id}/${step2Selection}`}
+          to={
+            step2Selection === 'addNew'
+              ? '/add-new'
+              : `/final/${params.id}/${step2Selection}`
+          }
           className={step2Completed ? 'btn' : 'btn disabled'}
         >
           Next

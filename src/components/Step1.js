@@ -26,12 +26,13 @@ const Step1 = ({ genres }) => {
             </span>
           ))}
       </div>
-      <Link
-        to={`/step2/${step1Selection}`}
-        className={step1Completed ? 'btn' : 'btn disabled'}
-      >
-        Next
-      </Link>
+      {step1Completed ? (
+        <Link to={`/step2/${step1Selection}`} className='btn'>
+          Next
+        </Link>
+      ) : (
+        <span className='btn disabled'>Next</span>
+      )}
     </div>
   );
 };
