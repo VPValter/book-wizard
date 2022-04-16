@@ -4,10 +4,13 @@ import './App.css';
 import Indicator from './components/Indicator';
 import Step1 from './components/Step1';
 import Step2 from './components/Step2';
+import Step3 from './components/Step3';
 
 function App() {
+  const [genres, setGenres] = useState([]);
+
   const getGenres = () => {
-    fetch('genres.json', {
+    fetch('/genres.json', {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -16,8 +19,10 @@ function App() {
       .then((res) => {
         return res.json();
       })
-      .then((genres) => {
-        setGenres(genres);
+      .then((data) => {
+        if (data.genres) {
+          setGenres(data.genres);
+        }
       });
   };
 
@@ -25,16 +30,15 @@ function App() {
     getGenres();
   }, []);
 
-  const [genres, setGenres] = useState({});
-
   return (
     <BrowserRouter>
       <div className='App'>
         <Indicator />
         <Routes>
           <Route path='/' element={<Navigate replace to='/step1' />} />
-          <Route path='/step1' element={<Step1 />} />
-          <Route path='/step2' element={<Step2 />} />
+          <Route path='/step1' element={<Step1 genres={genres} />} />
+          <Route path='/step2/:id' element={<Step2 genres={genres} />} />
+          <Route path='/step3/:selection/:id' element={<Step3 genres={genres} />} />
         </Routes>
       </div>
     </BrowserRouter>
