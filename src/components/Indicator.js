@@ -33,10 +33,16 @@ const Indicator = () => {
       )}
 
       {location.pathname.includes('/add-new') && (
-        <div className='indicator-item flex-column'>
-          <span className='number selected'>3</span>
-          <span className='label'>Add new subgenre</span>
-        </div>
+        <>
+          <div className='indicator-item flex-column'>
+            <span className='number selected'>3</span>
+            <span className='label'>Add new subgenre</span>
+          </div>
+          <div className='indicator-item flex-column'>
+            <span className='number'>4</span>
+            <span className='label'>Information</span>
+          </div>
+        </>
       )}
 
       {location.pathname.includes('/final') && (
@@ -51,7 +57,6 @@ const Indicator = () => {
           </div>
         </>
       )}
-
     </div>
   );
 };
