@@ -4,6 +4,7 @@
   --color-dark: #37474f;
   --color-black: #222;
   --color-accent: #219bd9;
+  --light-accent: #bce2f5;
   --color-danger: #d93646;
   --color-warning: #d9592b;
   --color-success: #28f018;
@@ -11,7 +12,7 @@
 
 .App {
   text-align: center;
-  background-color: var(--color-light);
+  background-color: var(--color-white);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -33,12 +34,11 @@ p {
   border-radius: 4px;
   cursor: pointer;
   border: 1px solid var(--color-dark);
-  background-color: var(--color-light);
+  background-color: var(--color-white);
   color: var(--color-dark);
 }
 .btn:hover {
-  background-color: var(--color-dark);
-  color: var(--color-light);
+  background-color: var(--color-light);
 }
 
 .btn.disabled {
@@ -66,4 +66,53 @@ p {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.indicator {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+.indicator-item {
+  align-items: center;
+  min-width: 8rem;
+  position: relative;
+}
+.indicator-item > span {
+  display: block;
+}
+.indicator-item > span.number {
+  height: 3rem;
+  width: 3rem;
+  text-align: center;
+  background-color: var(--light-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.indicator-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background-color: var(--light-accent);
+  width: 50%;
+  right: -0.5rem;
+  top: 1.5rem;
+}
+.indicator-item:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background-color: var(--light-accent);
+  width: 50%;
+  left: -0.5rem;
+  top: 1.5rem;
+}
+
+.indicator-item > span.number.selected {
+  background-color: var(--color-dark);
+  color: var(--color-white);
 }
