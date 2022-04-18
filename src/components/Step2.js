@@ -45,7 +45,7 @@ const Step2 = ({ genres }) => {
 
       <div className='flex-row'>
         <Link to='/step1' className='btn'>
-          Prev
+          Back
         </Link>
         <Link
           to={
