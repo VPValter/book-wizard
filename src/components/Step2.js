@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
-const Step2 = ({ genres }) => {
+const Step2 = ({ genres, setSelectedGenre, setSubGenre }) => {
   const params = useParams();
   const selectedGenre = genres.find((item) => item.id === parseInt(params.id));
 
@@ -10,6 +10,8 @@ const Step2 = ({ genres }) => {
 
   const selectStep2 = (selection) => {
     setStep2Selection(selection.id);
+    setSelectedGenre(selectedGenre);
+    setSubGenre(selection);
     setStep2Completed(true);
   };
 
@@ -51,7 +53,8 @@ const Step2 = ({ genres }) => {
           to={
             step2Selection === 'addNew'
               ? '/add-new'
-              : `/final/${params.id}/${step2Selection}`
+              : '/final'
+              // : `/final/${params.id}/${step2Selection}`
           }
           className={step2Completed ? 'btn' : 'btn disabled'}
         >
