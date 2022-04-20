@@ -1,9 +1,19 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate, useParams } from 'react-router-dom';
 
-const AddNew = ({ setSubGenre }) => {
+const AddNew = ({ genres, setGenres }) => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const genreId = parseInt(params.genre_id);
+
   const [isDescriptionRequired, setIsDescriptionRequired] = useState(false);
   const [subgenreName, setSubgenreName] = useState('');
+
+  const selectedGenre = genres.find((item) => item.id === genreId);
+  if (!selectedGenre) {
+    return <Navigate replace to='/step1' />;
+  }
+
   // mimicking random ID generation:
   const newSubID = 99 * Math.floor(Math.random() * 99);
 
@@ -14,11 +24,16 @@ const AddNew = ({ setSubGenre }) => {
       name: subgenreName,
       isDescriptionRequired,
     };
-    setSubGenre(subFormData);
-    navigate('/final');
-  };
+    setGenres(
+      genres.map((item) =>
+        item.id === parseInt(params.genre_id)
+          ? { ...item, subgenres: [...item.subgenres, subFormData] }
+          : item
+      )
+    );
 
-  const navigate = useNavigate();
+    navigate(`/final/${params.genre_id}/${newSubID}`);
+  };
 
   return (
     <form className='add-new' onSubmit={handleSubmit}>

@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const FinalStep = ({ setBookData }) => {
+const FinalStep = ({ setBookData, genres }) => {
+  const params = useParams();
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     bookTitle: '',
@@ -15,6 +17,24 @@ const FinalStep = ({ setBookData }) => {
     editionLanguage: '',
     description: '',
   });
+
+  const genreId = parseInt(params.genre_id);
+  const subGenreId = parseInt(params.subgenre_id);
+
+  if (!genres.length) {
+    return null;
+  }
+  const selectedGenre = genres.find((item) => item.id === genreId);
+  if (!selectedGenre) {
+    return `There is no genre with id ${genreId}`;
+  }
+  
+  const selectedSubGenre = selectedGenre.subgenres.find((item) => item.id === subGenreId);
+  if (!selectedSubGenre) {
+    return `There is no subgenre with id ${subGenreId}`;
+  }
+
+  const isDescriptionRequired = selectedSubGenre.isDescriptionRequired;
 
   const {
     bookTitle,
@@ -34,7 +54,7 @@ const FinalStep = ({ setBookData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setBookData(formData);
+    setBookData({...formData, genreId, subGenreId});
     navigate('/thankyou');
   };
 
@@ -48,6 +68,7 @@ const FinalStep = ({ setBookData }) => {
         value={bookTitle}
         onChange={(e) => onChange(e)}
         placeholder='Book title'
+        required
       />
       <label htmlFor='authorName'>Author</label>
       <input
@@ -57,6 +78,7 @@ const FinalStep = ({ setBookData }) => {
         value={authorName}
         onChange={(e) => onChange(e)}
         placeholder='Author'
+        required
       />
       <label htmlFor='isbn'>ISBN</label>
       <input
@@ -66,6 +88,7 @@ const FinalStep = ({ setBookData }) => {
         value={isbn}
         onChange={(e) => onChange(e)}
         placeholder='ISBN'
+        required
       />
       <label htmlFor='publisher'>Publisher</label>
       <input
@@ -137,6 +160,7 @@ const FinalStep = ({ setBookData }) => {
         value={description}
         onChange={(e) => onChange(e)}
         placeholder='Description'
+        required={isDescriptionRequired}
       />
       <div className='flex-row buttons'>
         <span className='btn' onClick={() => navigate(-1)}>

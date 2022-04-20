@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 
 const Step1 = ({ genres }) => {
   const [step1Selection, setStep1Selection] = useState(null);
-  const [step1Completed, setStep1Completed] = useState(false);
 
   const selectStep1 = (selection) => {
     setStep1Selection(selection.id);
-    setStep1Completed(true);
   };
 
   return (
     <div className='flex-column center'>
-      <h2>Step 1 component</h2>
+      <h3>Add new book - Step 1</h3>
       <div className='genres flex-row'>
         {genres &&
           genres.map((item) => (
@@ -26,7 +24,7 @@ const Step1 = ({ genres }) => {
             </span>
           ))}
       </div>
-      {step1Completed ? (
+      {step1Selection ? (
         <Link to={`/step2/${step1Selection}`} className='btn'>
           Next
         </Link>

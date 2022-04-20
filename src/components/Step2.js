@@ -1,23 +1,25 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 
-const Step2 = ({ genres, setSelectedGenre, setSubGenre }) => {
+const Step2 = ({ genres }) => {
   const params = useParams();
-  const selectedGenre = genres.find((item) => item.id === parseInt(params.id));
+  const selectedGenre = genres.find(
+    (item) => item.id === parseInt(params.genre_id)
+  );
 
   const [step2Selection, setStep2Selection] = useState(null);
-  const [step2Completed, setStep2Completed] = useState(false);
+
+  if (genres.length && !selectedGenre) {
+    return <Navigate replace to='/step1' />
+  }
 
   const selectStep2 = (selection) => {
     setStep2Selection(selection.id);
-    setSelectedGenre(selectedGenre);
-    setSubGenre(selection);
-    setStep2Completed(true);
   };
 
   return (
     <div className='flex-column center'>
-      <h2>Step 2 component</h2>
+      <h3>Add new book - Step 2</h3>
       {selectedGenre && (
         <p>
           Selected genre: {selectedGenre.name}, id: {selectedGenre.id}
@@ -52,11 +54,10 @@ const Step2 = ({ genres, setSelectedGenre, setSubGenre }) => {
         <Link
           to={
             step2Selection === 'addNew'
-              ? '/add-new'
-              : '/final'
-              // : `/final/${params.id}/${step2Selection}`
+              ? `/add-new/${params.genre_id}`
+              : `/final/${params.genre_id}/${step2Selection}`
           }
-          className={step2Completed ? 'btn' : 'btn disabled'}
+          className={step2Selection ? 'btn' : 'btn disabled'}
         >
           Next
         </Link>
