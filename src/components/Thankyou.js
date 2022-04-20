@@ -16,7 +16,7 @@ const Thankyou = ({ bookData }) => {
       <strong>Book added successfully</strong>
 
       <div className='information-entered'>
-        <p>Information entered:</p>
+        <p><u>Information entered:</u></p>
         {bookData.bookTitle && <p>Title: {bookData.bookTitle}</p>}
         {bookData.authorName && <p>Author: {bookData.authorName}</p>}
         {bookData.isbn && <p>ISBN: {bookData.isbn}</p>}
@@ -27,6 +27,7 @@ const Thankyou = ({ bookData }) => {
         {bookData.edition && <p>Edition: {bookData.edition}</p>}
         {bookData.editionLanguage && <p>Edition Language: {bookData.editionLanguage}</p>}
         {bookData.description && <p>Description: {bookData.description}</p>}
+        For genre id: {bookData.genreId}, subgenre id: {bookData.subGenreId}
       </div>
 
       <Link to='/step1' className='btn selected'>Add another book</Link>
