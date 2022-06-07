@@ -1,5 +1,1 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## (WORK IN PROGRESS)
+A React exercise using **React Router v6** to create a step-by-step wizard-like kind of flow.
